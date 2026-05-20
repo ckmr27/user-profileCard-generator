@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile Card Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-screen overflow-hidden bg-slate-50 text-slate-900">
+    <div class="mx-auto flex h-screen max-w-6xl flex-col justify-center px-4 pb-8 pt-10 lg:py-10">
+      <div class="grid h-full gap-6 lg:grid-cols-2">
+        <div class="flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-white p-8 shadow-lg shadow-slate-200/80">
+          <div>
+            <h1 class="text-3xl font-semibold text-slate-900">User Profile Card Generator</h1>
+            <p class="mt-3 text-slate-600">Enter your name, bio, and image URL, then submit to see your profile card.</p>
+          </div>
+
+        <form method="post" class="mt-8 grid gap-6 sm:grid-cols-2">
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium text-slate-700">Name</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="Jane Doe"
+              class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
+              required
+            />
+          </label>
+
+          <label class="block sm:col-span-2">
+            <span class="mb-2 block text-sm font-medium text-slate-700">Bio</span>
+            <textarea
+              name="bio"
+              rows="4"
+              placeholder="Full-stack developer with a passion for beautiful UI and clean code."
+              class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
+              required
+            ></textarea>
+          </label>
+
+          <label class="block sm:col-span-2">
+            <span class="mb-2 block text-sm font-medium text-slate-700">Image URL</span>
+            <input
+              type="url"
+              name="image_url"
+              placeholder="https://example.com/avatar.jpg"
+              class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
+            />
+          </label>
+
+          <button
+            type="submit"
+            class="sm:col-span-2 inline-flex items-center justify-center rounded-2xl bg-sky-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-sky-700"
+          >
+            Generate Profile Card
+          </button>
+        </form>
+      </div>
+
+      {% if profile %}
+      <div class="flex h-full flex-col justify-center overflow-hidden rounded-3xl bg-white p-8 shadow-xl shadow-slate-200/80">
+        <div class="grid gap-6 lg:grid-cols-[220px_1fr] lg:items-center h-full">
+          <div class="mx-auto w-48">
+            <div class="relative overflow-hidden rounded-3xl bg-slate-100 p-1 shadow-lg shadow-slate-200/80">
+              <img
+                src="{{ profile.image_url or 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80' }}"
+                alt="Profile avatar"
+                class="h-48 w-48 rounded-3xl object-cover"
+              />
+            </div>
+          </div>
+
+          <div>
+            <span class="inline-flex rounded-full bg-sky-100 px-3 py-1 text-sm font-medium text-sky-700">Profile Card</span>
+            <h2 class="mt-4 text-4xl font-semibold text-slate-900">{{ profile.name or 'Anonymous' }}</h2>
+            <p class="mt-4 max-w-2xl text-slate-600">{{ profile.bio or 'No bio provided yet. Add details in the form and submit again.' }}</p>
+            <div class="mt-6 flex flex-wrap gap-3 text-sm text-slate-500">
+              <span class="rounded-2xl bg-slate-100 px-4 py-2">Web Designer</span>
+              <span class="rounded-2xl bg-slate-100 px-4 py-2">Python Enthusiast</span>
+              <span class="rounded-2xl bg-slate-100 px-4 py-2">Profile card preview</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
