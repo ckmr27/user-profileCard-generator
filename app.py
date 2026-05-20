@@ -19,7 +19,7 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = os.getenv('FLASK_ENV', '').lower() == 'production'
 
 limiter = Limiter(
-    app,
+    app=app,
     key_func=get_remote_address,
     default_limits=['200 per day', '50 per hour'],
     storage_uri='memory://',
